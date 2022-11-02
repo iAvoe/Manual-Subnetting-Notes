@@ -1,4 +1,4 @@
-### Subnetting relates to network securiy and stability, this is nto an abstract.
+### Subnetting relates to network securiy and stability, this is not an abstract.
 
 # ---Methodology---
 
