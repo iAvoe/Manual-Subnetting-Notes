@@ -54,34 +54,34 @@
 
 ### Example - 154.56.141.11/20
 
- - `/20` corresponds to `255.255.240.0` or `0.0.15.255` in the file above.
- - 255 always corresponds to 11111111
- - 000 always corresponds to 00000000
- - 240, according to the file above, corresponds to 1111000
- - We get 11111111.11111111.11110000.00000000 in the end
- - Convert 1-to-N, 0-to-D, you'll get NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
- - N stands for network
- - D stands for Device/node
- - We only need to compute the address range with both N, D shows up
+     - `/20` corresponds to `255.255.240.0` or `0.0.15.255` in the file above.
+     - 255 always corresponds to 11111111
+     - 000 always corresponds to 00000000
+     - 240, according to the file above, corresponds to 1111000
+     - We get 11111111.11111111.11110000.00000000 in the end
+     - Convert 1-to-N, 0-to-D, you'll get NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
+     - N stands for network
+     - D stands for Device/node
+     - We only need to compute the address range with both N, D shows up
 
 **Note:** You should be knowing thae property of adding binaries up:
 
-0d256 = 0b11111111 = 0b10000000+0b01111111, which is 0d(128+128)
-0d128 = 0b01111111 = 0d(64+64), and so on.
+    0d256 = 0b11111111 = 0b10000000+0b01111111, which is 0d(128+128)
+    0d128 = 0b01111111 = 0d(64+64), and so on.
 
 ## Step 3 - Get binary
 
 ### Example - 154.56.141.11/20
 
- - From the previous example, we learned that only one address range needs to be computed.
- - We need to convert "141" to binary, because it is on that NNNNDDDD portion.
- - Use this table to convert: 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255, which is 0b11111111
- - 141 is larger than 128, subtract it, and we have 128 and 13
- - 13 is larger than 1, subtract it, and we have 128, 1 and 12
- - 12 is 8+4, now we have 128, 8, 4 and 1
- - this corresponds to 1, -, -, -, 1, 1, -, 1, or 10001101
- - Write the rest 154, 56 and 11 as 0d154, 0d56 and 0d11
- - We get 0d154.0d56.10001101.0d11
+     - From the previous example, we learned that only one address range needs to be computed.
+     - We need to convert "141" to binary, because it is on that NNNNDDDD portion.
+     - Use this table to convert: 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255, which is 0b11111111
+     - 141 is larger than 128, subtract it, and we have 128 and 13
+     - 13 is larger than 1, subtract it, and we have 128, 1 and 12
+     - 12 is 8+4, now we have 128, 8, 4 and 1
+     - this corresponds to 1, -, -, -, 1, 1, -, 1, or 10001101
+     - Write the rest 154, 56 and 11 as 0d154, 0d56 and 0d11
+     - We get 0d154.0d56.10001101.0d11
 
 ## Step 4 - Filtering
 
@@ -101,25 +101,25 @@ And we are done.
 
 ### Example 1: 172.16.28.252, wlcd 0.0.15.255
 
- 1. mask is 255.255.240.0, CIDR is /20, promask is NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
- 2. 0d172.0d16.20+8.0d252
- 3. 0d172.0d16.16+8+4.0d252
- 4. 0d172.0d16.16+8+4.0d252, where 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255
- 5. 0d172.0d16.00011100.0d252
- 6. DDDD.DDDDDDDD, filter 12bits
- 7. 172.16.0b00010000.0
- 8. 172.16.16.0 is the network address, 172.16.16.1 is the 1st available address
- 9. 172.16.00011111.11111111 is the broadcast address
- 10. 00011111 is 16 plus (the rest that always makes up to 16), which is 172.16.32.255
+     1. mask is 255.255.240.0, CIDR is /20, promask is NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
+     2. 0d172.0d16.20+8.0d252
+     3. 0d172.0d16.16+8+4.0d252
+     4. 0d172.0d16.16+8+4.0d252, where 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255
+     5. 0d172.0d16.00011100.0d252
+     6. DDDD.DDDDDDDD, filter 12bits
+     7. 172.16.0b00010000.0
+     8. 172.16.16.0 is the network address, 172.16.16.1 is the 1st available address
+     9. 172.16.00011111.11111111 is the broadcast address
+     10. 00011111 is 16 plus (the rest that always makes up to 16), which is 172.16.32.255
  
 ### Example 2: 192.168.20.24/29, configure web server to last usable
 
- 1. 255.255.255.248	0.0.0.7		/29	11111000 = 6  hosts, 8N.8N.8N.NNNNNDDD
- 2. 0d192.0d168.0d20.16+8, where 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255
- 3. 192.168.20.00011000, strip there D exists
- 4. 192.168.20.00011000 is the network address, which is 192.168.20.24
- 5. 192.168.20.00011111 is the broadcast address, which is 192.168.20.31
- 6. The web server's IP should be 192.168.20.30
+     1. 255.255.255.248	0.0.0.7		/29	11111000 = 6  hosts, 8N.8N.8N.NNNNNDDD
+     2. 0d192.0d168.0d20.16+8, where 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255
+     3. 192.168.20.00011000, strip there D exists
+     4. 192.168.20.00011000 is the network address, which is 192.168.20.24
+     5. 192.168.20.00011111 is the broadcast address, which is 192.168.20.31
+     6. The web server's IP should be 192.168.20.30
  
 ### Example 3 (hard): Setup 8 LANs starts from 192.168.2.1 with normal subnet, each contain 5~26 hosts
  
