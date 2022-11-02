@@ -118,8 +118,9 @@ And we are done.
      2. 0d192.0d168.0d20.16+8, where 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255
      3. 192.168.20.00011000, strip there D exists
      4. 192.168.20.00011000 is the network address, which is 192.168.20.24
-     5. 192.168.20.00011111 is the broadcast address, which is 192.168.20.31
-     6. The web server's IP should be 192.168.20.30
+     5. 192.168.20.00011001 is the 1st usable address, which is 192.168.20.25
+     6. 192.168.20.00011111 is the broadcast address, which is 192.168.20.31
+     7. The web server's IP should be 192.168.20.30
  
 ### Example 3 (hard): Setup 8 LANs starts from 192.168.2.1 with normal subnet, each contain 5~26 hosts
  
