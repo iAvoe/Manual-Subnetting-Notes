@@ -47,7 +47,7 @@
     128.0.0.0	127.255.255.255	/1
     000.0.0.0	255.255.255.255	/0
 
-    Find the subnet to cover the minimal amount of hosts supported here
+    Find the minimal subnet to cover the maximum amount of hosts supported here
     Static Routing should be called as reverse-gateway, remember this.
 
 ## Step 2 - Where to compute
