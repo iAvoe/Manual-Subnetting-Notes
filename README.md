@@ -73,7 +73,7 @@
 
 ### Example - 154.56.141.11/20
 
-     - From the previous example, we learned that only one address range needs to be computed.
+     - From the previous example, we learned that only one address section needs to be computed.
      - We need to convert "141" to binary, because it is on that NNNNDDDD portion.
      - Use this table to convert: 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255, which is 0b11111111
      - 141 is larger than 128, subtract it, and we have 128 and 13
