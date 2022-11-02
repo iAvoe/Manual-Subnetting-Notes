@@ -142,7 +142,7 @@ And we are done.
        LAN3 usable: 198.168.2.65 ~ 198.168.2.128
        ...
 
-#### Example (very hard): Setup a variable subnet mask (VLSM) for the following dpts in a company, choose your own IP address:
+### Example 4 (very hard): Setup a variable subnet mask (VLSM) for the following dpts in a company, choose your own IP address:
 
     25	    IT/Mgmt.
     150	    Marketing
