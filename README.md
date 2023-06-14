@@ -52,20 +52,30 @@
 
 ### Example - 154.56.141.11/20
 
-     - `/20` corresponds to `255.255.240.0` or `0.0.15.255` in the file above.
-     - 255 always corresponds to 11111111
-     - 000 always corresponds to 00000000
-     - 240, according to the file above, corresponds to 1111000
-     - We get 11111111.11111111.11110000.00000000 in the end
-     - Convert 1-to-N, 0-to-D, you'll get NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
-     - N stands for network
-     - D stands for Device/node
+     1. Convert CIDR/Subnet/Wildcard bits to binary
+     - Find where does a CIDR of /20 corresponds to the file above
+     - According from the 'baked' subnet map, CIDR /20 corresponds 255.255.240.0 / 0.0.15.255
+     - We get:
+       - 2 × 255 decimal bits
+       - 1 × 240 decimal bit
+       - 1 × 000 decimal bit
+     - 240, according to the Binary column in the 'baked' map, corresponds to 1111000
+     - The rest parts are easy, we get:
+       - 2 × 11111111 binary bits
+       - 1 × 11110000 binary bit
+       - 1 × 00000000 binary bit
+     - Now we have a subnet converted from decimal to binary as 11111111.11111111.11110000.00000000
+     
+     2. Find which the device/note's bit if given IP address
+     - Convert 1-to-N, 0-to-D, the binary subnet bits becomes NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
+     - N stands for network or Routers' address range, all of them are available for routers, or things on the external network
+     - D stands for Device/nodes' address range, all of them are available for devices, or the entire DHCP pool
      - We only need to compute the address range with both N, D shows up
 
-**Note:** You should be knowing thae property of adding binaries up:
+**Note:** Binary addition:
 
-    0d256 = 0b11111111 = 0b10000000+0b01111111, which is 0d(128+128)
-    0d128 = 0b01111111 = 0d(64+64), and so on.
+    0d256 = 0b_1,0000,0000 = 0b_1000,0000+0b1000,0000 = 0d 128+128
+    0d128 = 0b___1000,0000 = 0b_0100,0000+0b0100,0000 = 0d 64+64
 
 ## Step 3 - Get binary
 
