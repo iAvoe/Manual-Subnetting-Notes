@@ -1,10 +1,8 @@
 ### Subnetting relates to network securiy and stability, this is not an abstract.
 
-# ---Methodology---
-
 ## Step 1 - Preparations
 
-### Create "Subnet and wildcard subnet baked.txt" from contant below:
+### Create "Subnet and wildcard subnet baked.txt" from content below:
 
     Subnet Mask & Wlcd Mask Slash Hosts (minus 2):
     Broadcast .255 and Router .1 takes that 2 off
@@ -97,7 +95,7 @@ And we are done.
 
 -----
 
-# ---Full-speed-actual-usage---
+# Compute actual senarios in full speed
 
 ### Example 1: 172.16.28.252, wlcd 0.0.15.255
 
