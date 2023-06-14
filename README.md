@@ -4,7 +4,7 @@
 
 ## Step 1 - Preparations
 
-### Create "Subnet and wildcard subnet baked.txt" from following content and take it to your exams:
+### Create "Subnet and wildcard subnet baked.txt" from contant below:
 
     Subnet Mask & Wlcd Mask Slash Hosts (minus 2):
     Broadcast .255 and Router .1 takes that 2 off
@@ -50,7 +50,7 @@
     Find the minimal subnet to cover the maximum amount of hosts supported here
     Static Routing should be called as reverse-gateway, remember this.
 
-## Step 2 - Where to compute
+## Step 2 - Find where to compute
 
 ### Example - 154.56.141.11/20
 
