@@ -66,11 +66,14 @@
        - 1 × 00000000 binary bit
      - Now we have a subnet converted from decimal to binary as 11111111.11111111.11110000.00000000
      
-     2. Find which the device/note's bit if given IP address
+     2. Find which the device/node's bits
      - Convert 1-to-N, 0-to-D, the binary subnet bits becomes NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
-     - N stands for network or Routers' address range, all of them are available for routers, or things on the external network
-     - D stands for Device/nodes' address range, all of them are available for devices, or the entire DHCP pool
+     - N stands for network or Routers' external address, most of them are available to be assigned by your ISP
+     - D stands for Device/Nodes' address range, all of them are available for devices, or the entire DHCP pool
      - We only need to compute the address range with both N, D shows up
+     
+     3. The 'D' bits are found
+     - There could be 0b_0000,00000000 to 0b_1111,11111111 devices, minus Router's internal & broadcast addresses (2) available
 
 **Note:** Binary addition:
 
@@ -81,23 +84,27 @@
 
 ### Example - 154.56.141.11/20
 
-     - From the previous example, we learned that only one address section needs to be computed.
-     - We need to convert "141" to binary, because it is on that NNNNDDDD portion.
-     - Use this table to convert: 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255, which is 0b11111111
+     - We only compute where 'N' bits and 'D' bits occurs in the same range, which in this case, the '141' portion
+     - Convert "141" to binary
+       - 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255
      - 141 is larger than 128, subtract it, and we have 128 and 13
-     - 13 is larger than 1, subtract it, and we have 128, 1 and 12
-     - 12 is 8+4, now we have 128, 8, 4 and 1
-     - this corresponds to 1, -, -, -, 1, 1, -, 1, or 10001101
-     - Write the rest 154, 56 and 11 as 0d154, 0d56 and 0d11
-     - We get 0d154.0d56.10001101.0d11
+       - 128 + 00 + 00 + 00 + ............. = 141
+     - 8 + 4 = 12, which is smaller than 13, subtract it.
+       - 128 + 00 + 00 + 00 + 8 + 4 + ..... = 141
+     - Only 1 is left, which is:
+       - 128 + 00 + 00 + 00 + 8 + 4 + 0 + 1 = 141
+       - 0b1,  0,   0,   0,   1,  1,  0,  1 = 0d_141
+     - We found that this corresponds to 1, -, -, -, 1, 1, -, 1, or 10001101
+     - The rest 'NNNNNNNN' or 'DDDDDDDD' 154, 56 and 11 as 0d154, 0d56 & 0d11
+     - We get 0d_154.0d_56.0b_10001101.0d_11
 
 ## Step 4 - Filtering
 
 Subnet mask cuts off all the devices bit, leaving network bits; Which means whereever "D" exists, all "1"s becomes 0 in the ip address
 
-    Before-----------0d154.----0d56.10001101.----0d11
-    Filtering-----NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
-    After------------0d154.----0d56.10000000.00000000
+    Before---------------------------    0d154.----0d56.10001101.----0d11
+    Filtering------------------------ NNNNNNNN.NNNNNNNN.NNNNDDDD.DDDDDDDD
+    Where D bits exists, convert to 0    0d154.----0d56.10000000.00000000
     
     Back-to-decimal: 154.56.128.0
 
