@@ -112,7 +112,7 @@ And we are done.
 
 -----
 
-# Compute actual senarios in full speed
+# Deal with actual senarios with ease
 
 ### Example 1: 172.16.28.252, wlcd 0.0.15.255
 
@@ -177,10 +177,39 @@ And we are done.
        255.255.255.224	0.0.0.31	/27 	11100000 = 30 hosts
        255.255.255.192	0.0.0.63	/26 	11000000 = 62 hosts
        
-    8. Department                           Network Addr    First Avail.    Last Avail.     VLSM used
+    7. Department                           Network Addr    First Avail.    Last Avail.     VLSM used
        Production	CIDR: 24 (254hosts)	= 10.0.1.0/24   = 10.0.1.1      = 10.0.1.255    0
        Marketing	CIDR: 24 (254hosts)	= 10.0.2.0/24   = 10.0.2.1      = 10.0.2.255    0
        Accounting	CIDR: 26 (62hosts = 62) = 10.0.3.0/26   = 10.0.3.1      = 10.0.3.64     1
        HR & Payroll	CIDR: 26 (24hosts < 62) = 10.0.3.0/26   = 10.0.3.65     = 10.0.3.128    1
        IT           CIDR: 26 (25hosts < 62) = 10.0.3.0/26   = 10.0.3.129    = 10.0.3.192    1
        Research     CIDR: 26 (6hosts  < 62) = 10.0.3.0/26   = 10.0.3.193    = 10.0.3.255    1
+
+### Example 5 - (Realistic, PC DIY): hook up an Eth printer to your computer directly via ethernet
+
+You've found a good deal on eBay where companies/schools dumps enterprise printers which are infinitely better than your 2000era DeskJets (no offence)
+ - You want to put this printer in the other side of your room because of it's size, and a USB cable is too short for this distance
+ - You don't want other tenants sharing this network to see and ask you to print, scan for them
+ - The printer has 1 Eth, 1 USB type B port available
+
+Choosing USB over Eth is more expensive and the signal quality / clearity would be horrible:
+ - 1 spool of Cat5 cable
+ - 2 USB to Eth adaptors
+ - 1 USB-A to USB-B adaptor
+
+Choosing Eth is cheaper and more elegant, and less likely to pick up EMI noises:
+ - 1 spool of Cat5 cable
+ - 1 PCIE to Eth adaptor (e.g., Realtek 8111)
+
+Therefore you configures the ip address using the same principle, creating a private network with something like 10.0.0.0:
+#
+    01	    A pcie to Eth adaptor
+    01	    A network printer
+
+    1. max 1+1=2 devices
+    2. 255.255.255.252	0.0.0.255	/30		11111100 = 2 hosts
+    
+    3. Department                           Network Addr    First Avail.    Last Avail.     VLSM used
+       Private network	CIDR: 30 (2hosts)	= 10.0.0.0/30   = 10.0.0.1      = 10.0.0.2    0
+
+Finally, configure the PCIE NIC and printer with 10.0.0.1/30 and 10.0.0.2/30, with a default gateway as your PC's network address under the home router.
