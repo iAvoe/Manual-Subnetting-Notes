@@ -209,7 +209,7 @@ Therefore you configures the ip address using the same principle, creating a pri
     1. max 1+1=2 devices
     2. 255.255.255.252	0.0.0.255	/30		11111100 = 2 hosts
     
-    3. Department                           Network Addr    First Avail.    Last Avail.     VLSM used
-       Private network	CIDR: 30 (2hosts)	= 10.0.0.0/30   = 10.0.0.1      = 10.0.0.2    0
+    3. Department		Network Addr	First Avail.	 Last Avail.	VLSM used
+       Private network	= 10.0.0.0/30	= 10.0.0.1	 = 10.0.0.2	0
 
 Finally, configure the PCIE NIC and printer with 10.0.0.1/30 and 10.0.0.2/30, with a default gateway as your PC's network address under the home router.
