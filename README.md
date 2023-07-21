@@ -221,5 +221,6 @@ And the PCIE NIC on your PC with:
  - Subnet mask: 255.255.255.252
  - Def Gateway: {home router's IP address}
 
-If you changes your mind and wanted to share the network printer later, add a static route with:
+If you changes your mind and wanted to share the network printer later, add a static route on home router with:
  - network 10.0.0.0 with subnet mask 255.255.255.252, via {your PC's static IP address}
+ - Note: you may need to upgrade your home router to be able to do that
