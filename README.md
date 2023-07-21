@@ -112,7 +112,51 @@ And we are done.
 
 -----
 
-# Deal with actual senarios with ease
+# Deal with realistic senarios
+
+### Example 1 - (PC DIY): hook up an Eth printer to your computer directly via ethernet
+
+You've found a good deal on eBay where companies/schools dumps enterprise printers which are infinitely better than your 2000era DeskJets (no offence)
+ - You want to put this printer in the other side of your room because of it's size, and a USB cable is too short for this distance
+ - You don't want other tenants sharing this network to see and ask you to print, scan for them
+ - The printer has 1 Eth, 1 USB type B port available
+
+Choosing USB over Eth is more expensive and the signal quality / clarity would be horrible:
+ - 1 spool of Cat5 cable
+ - 2 USB to Eth adaptors
+ - 1 USB-A to USB-B adaptor
+
+Choosing Eth is cheaper and more elegant, and less likely to pick up EMI noises:
+ - 1 spool of Cat5 cable
+ - 1 PCIE to Eth adaptor (e.g., Realtek 8111)
+
+Therefore you configures the ip address using the same principle, creating a private network with something like 10.0.0.0:
+#
+    01	    A pcie to Eth adaptor
+    01	    A network printer
+
+    1. max 1+1=2 devices
+    2. 255.255.255.252	0.0.0.3	    /30		11111100 = 2 hosts
+    3. Department		Network Addr	First Avail.	 Last Avail.	VLSM used
+       Private network	= 10.0.0.0/30	= 10.0.0.1	 = 10.0.0.2	0
+
+Finally, manually set the network printer with:
+ - IP address:  10.0.0.2
+ - Subnet mask: 255.255.255.252
+ - Def Gateway: 10.0.0.1
+
+And the PCIE NIC on your PC with:
+ - IP address:  10.0.0.1
+ - Subnet mask: 255.255.255.252
+ - Def Gateway: {home router's IP address}
+
+If you changes your mind and wanted to share the network printer later, add a static route on home router with:
+ - network 10.0.0.0 with subnet mask 255.255.255.252, via {your PC's static IP address}
+ - Note: you may need to upgrade your home router to be able to do that
+
+---
+
+# Deal with academic senarios
 
 ### Example 1: 172.16.28.252, wlcd 0.0.15.255
 
@@ -184,43 +228,3 @@ And we are done.
        HR & Payroll	CIDR: 26 (24hosts < 62) = 10.0.3.0/26   = 10.0.3.65     = 10.0.3.128    1
        IT           CIDR: 26 (25hosts < 62) = 10.0.3.0/26   = 10.0.3.129    = 10.0.3.192    1
        Research     CIDR: 26 (6hosts  < 62) = 10.0.3.0/26   = 10.0.3.193    = 10.0.3.255    1
-
-### Example 5 - (PC DIY): hook up an Eth printer to your computer directly via ethernet
-
-You've found a good deal on eBay where companies/schools dumps enterprise printers which are infinitely better than your 2000era DeskJets (no offence)
- - You want to put this printer in the other side of your room because of it's size, and a USB cable is too short for this distance
- - You don't want other tenants sharing this network to see and ask you to print, scan for them
- - The printer has 1 Eth, 1 USB type B port available
-
-Choosing USB over Eth is more expensive and the signal quality / clearity would be horrible:
- - 1 spool of Cat5 cable
- - 2 USB to Eth adaptors
- - 1 USB-A to USB-B adaptor
-
-Choosing Eth is cheaper and more elegant, and less likely to pick up EMI noises:
- - 1 spool of Cat5 cable
- - 1 PCIE to Eth adaptor (e.g., Realtek 8111)
-
-Therefore you configures the ip address using the same principle, creating a private network with something like 10.0.0.0:
-#
-    01	    A pcie to Eth adaptor
-    01	    A network printer
-
-    1. max 1+1=2 devices
-    2. 255.255.255.252	0.0.0.3	    /30		11111100 = 2 hosts
-    3. Department		Network Addr	First Avail.	 Last Avail.	VLSM used
-       Private network	= 10.0.0.0/30	= 10.0.0.1	 = 10.0.0.2	0
-
-Finally, manually set the network printer with:
- - IP address:  10.0.0.2
- - Subnet mask: 255.255.255.252
- - Def Gateway: 10.0.0.1
-
-And the PCIE NIC on your PC with:
- - IP address:  10.0.0.1
- - Subnet mask: 255.255.255.252
- - Def Gateway: {home router's IP address}
-
-If you changes your mind and wanted to share the network printer later, add a static route on home router with:
- - network 10.0.0.0 with subnet mask 255.255.255.252, via {your PC's static IP address}
- - Note: you may need to upgrade your home router to be able to do that
