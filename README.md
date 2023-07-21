@@ -185,7 +185,7 @@ And we are done.
        IT           CIDR: 26 (25hosts < 62) = 10.0.3.0/26   = 10.0.3.129    = 10.0.3.192    1
        Research     CIDR: 26 (6hosts  < 62) = 10.0.3.0/26   = 10.0.3.193    = 10.0.3.255    1
 
-### Example 5 - (Realistic, PC DIY): hook up an Eth printer to your computer directly via ethernet
+### Example 5 - (PC DIY): hook up an Eth printer to your computer directly via ethernet
 
 You've found a good deal on eBay where companies/schools dumps enterprise printers which are infinitely better than your 2000era DeskJets (no offence)
  - You want to put this printer in the other side of your room because of it's size, and a USB cable is too short for this distance
@@ -207,9 +207,19 @@ Therefore you configures the ip address using the same principle, creating a pri
     01	    A network printer
 
     1. max 1+1=2 devices
-    2. 255.255.255.252	0.0.0.255	/30		11111100 = 2 hosts
-    
+    2. 255.255.255.252	0.0.0.3	    /30		11111100 = 2 hosts
     3. Department		Network Addr	First Avail.	 Last Avail.	VLSM used
        Private network	= 10.0.0.0/30	= 10.0.0.1	 = 10.0.0.2	0
 
-Finally, configure the PCIE NIC and printer with 10.0.0.1/30 and 10.0.0.2/30, with a default gateway as your PC's network address under the home router.
+Finally, manually set the network printer with:
+ - IP address:  10.0.0.2
+ - Subnet mask: 255.255.255.252
+ - Def Gateway: 10.0.0.1
+
+And the PCIE NIC on your PC with:
+ - IP address:  10.0.0.1
+ - Subnet mask: 255.255.255.252
+ - Def Gateway: {home router's IP address}
+
+If you changes your mind and wanted to share the network printer later, add a static route with:
+ - network 10.0.0.0 with subnet mask 255.255.255.252, via {your PC's static IP address}
