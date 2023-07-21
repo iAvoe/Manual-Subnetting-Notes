@@ -114,21 +114,21 @@ And we are done.
 
 # Deal with realistic senarios
 
-### Example 1 - (PC DIY): hook up an Eth printer to your computer directly via ethernet
+### Example 1 - (PC DIY): hook up a printer to your PC directly via ethernet
 
 You've found a good deal on eBay where companies/schools dumps enterprise printers which are infinitely better than your 2000era DeskJets (no offence)
  - You want to put this printer in the other side of your room because of it's size, and a USB cable is too short for this distance
- - You don't want other tenants sharing this network to see and ask you to print, scan for them
+ - You don't want other people sharing this network to see and ask you to print, scan for them as this can become very annoying
  - The printer has 1 Eth, 1 USB type B port available
 
 Choosing USB over Eth is more expensive and the signal quality / clarity would be horrible:
- - 1 spool of Cat5 cable
- - 2 USB to Eth adaptors
- - 1 USB-A to USB-B adaptor
+ - 1 spool of Cat5 cable ($8~18)
+ - 2 USB to Eth adaptors ($15~30)
+ - 1 USB-A to USB-B adaptor ($5~10)
 
 Choosing Eth is cheaper and more elegant, and less likely to pick up EMI noises:
- - 1 spool of Cat5 cable
- - 1 PCIE to Eth adaptor (e.g., Realtek 8111)
+ - 1 spool of Cat5 cable ($8~18)
+ - 1 PCIE to Eth adaptor ($15~20. e.g., Realtek 8111)
 
 Therefore you configures the ip address using the same principle, creating a private network with something like 10.0.0.0:
 #
