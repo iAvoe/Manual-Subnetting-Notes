@@ -112,7 +112,7 @@ And we are done.
 
 -----
 
-# Deal with realistic senarios
+# Realistic senarios
 
 ### Example 1 - (PC DIY): hook up a printer to your PC directly via ethernet
 
@@ -156,7 +156,7 @@ If you changes your mind and wanted to share the network printer later, add a st
 
 ---
 
-# Deal with academic senarios
+# Academic senarios
 
 ### Example 1: 172.16.28.252, wlcd 0.0.15.255
 
